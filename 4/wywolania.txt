@@ -1,0 +1,92 @@
+-- Przykładowe wywołania funkcji
+main = do
+    -- Przykładowe wywołania funkcji jednej zmiennej
+    putStrLn $ "double 5 = " ++ show (double 5)
+    putStrLn $ "square 4 = " ++ show (square 4)
+
+    -- Przykładowe wywołania funkcji dwóch zmiennych
+    putStrLn $ "add 3 7 = " ++ show (add 3 7)
+    putStrLn $ "max' 5 9 = " ++ show (max' 5 9)
+
+    -- Przykładowe wywołania funkcji trzech zmiennych
+    putStrLn $ "sumThree 1 2 3 = " ++ show (sumThree 1 2 3)
+    putStrLn $ "minThree 8 6 7 = " ++ show (minThree 8 6 7)
+
+
+-- Przykładowe wywołania funkcji
+main = do
+    -- Wywołania funkcji markaKraju
+    putStrLn $ "Marka z Niemcy: " ++ show (markaKraju "Niemcy")
+    putStrLn $ "Marka z Japonia: " ++ show (markaKraju "Japonia")
+
+    -- Wywołania funkcji maxPredkosc
+    putStrLn $ "Maksymalna prędkość Audi: " ++ show (maxPredkosc Audi) ++ " km/h"
+    putStrLn $ "Maksymalna prędkość Toyota: " ++ show (maxPredkosc Toyota) ++ " km/h"
+
+
+-- Definicja drzewa binarnego
+data Tree a = Empty | Node a (Tree a) (Tree a)
+    deriving (Show, Eq)
+
+-- Przeglądanie inorder
+inorder :: Tree a -> [a]
+inorder Empty = []
+inorder (Node x left right) = inorder left ++ [x] ++ inorder right
+
+-- Funkcja treeMember z użyciem elem
+treeMemberElem :: (Eq a) => a -> Tree a -> Bool
+treeMemberElem x tree = x `elem` inorder tree
+
+-- Funkcja treeMember bez użycia elem
+treeMember :: (Eq a) => a -> Tree a -> Bool
+treeMember _ Empty = False
+treeMember x (Node y left right)
+    | x == y    = True
+    | otherwise = treeMember x left || treeMember x right
+
+-- Przykładowe drzewa
+tree1 :: Tree Int
+tree1 = Empty
+
+tree2 :: Tree Int
+tree2 = Node 5 Empty Empty
+
+tree3 :: Tree Int
+tree3 = Node 10 (Node 5 Empty Empty) (Node 15 Empty Empty)
+
+tree4 :: Tree Int
+tree4 = Node 10 (Node 5 (Node 3 Empty Empty) (Node 7 Empty Empty)) (Node 15 (Node 13 Empty Empty) (Node 17 Empty Empty))
+
+-- Testy zadanie 5
+runTests :: IO ()
+runTests = do
+    -- Testy dla treeMemberElem
+    print (treeMemberElem 5 tree1 == False)
+    print (treeMemberElem 5 tree2 == True)
+    print (treeMemberElem 7 tree3 == False)
+    print (treeMemberElem 15 tree3 == True)
+    print (treeMemberElem 3 tree4 == True)
+    print (treeMemberElem 18 tree4 == False)
+
+    -- Testy dla treeMember
+    print (treeMember 5 tree1 == False)
+    print (treeMember 5 tree2 == True)
+    print (treeMember 7 tree3 == False)
+    print (treeMember 15 tree3 == True)
+    print (treeMember 3 tree4 == True)
+    print (treeMember 18 tree4 == False)
+
+main :: IO ()
+main = runTests
+
+
+-- Przykładowe drzewo
+treeExample :: Tree Int
+treeExample = Node 1 
+                (Node 2 (Node 4 Empty Empty) (Node 5 (Node 8 Empty Empty) (Node 9 Empty Empty)))
+                (Node 3 (Node 6 Empty Empty) (Node 7 Empty Empty))
+
+-- Główna funkcja uruchamiająca testy
+main :: IO ()
+main = print (breadthFirstTraversal treeExample)
+

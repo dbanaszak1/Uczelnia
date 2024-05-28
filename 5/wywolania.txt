@@ -1,0 +1,40 @@
+import Mojzbior
+
+main :: IO ()
+main = do
+    let setA = [1, 2, 3, 4, 5]
+        setB = [3, 4, 5, 6, 7]
+        setC = [1, 2]
+
+    putStrLn "Iloczyn zbiorów setA i setB:"
+    print (iloczyn setA setB)
+
+    putStrLn "Suma zbiorów setA i setB:"
+    print (suma setA setB)
+
+    putStrLn "Różnica zbiorów setA i setB:"
+    print (roznica setA setB)
+
+    putStrLn "Czy setC jest podzbiorem setA?"
+    print (podzbior setC setA)
+
+    putStrLn "Czy setB jest podzbiorem setA?"
+    print (podzbior setB setA)
+
+Zadanie 4
+exampleTree :: TernaryTree Int
+exampleTree = Node 1 
+                (Node 2 Empty Empty Empty)
+                (Node 3 
+                    (Node 4 Empty Empty Empty) 
+                    Empty 
+                    Empty
+                )
+                (Node 5 Empty Empty Empty)
+
+main :: IO ()
+main = do
+    let tree = exampleTree
+    putStrLn "Suma wszystkich elementów w drzewie ternarnym:"
+    print $ sumTernaryTree tree
+
